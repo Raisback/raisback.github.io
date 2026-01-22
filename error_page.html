@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>System Failure</title>
+    <style>
+        /* Classic Windows XP BSOD Font */
+        @font-face {
+            font-family: 'LucidaConsole';
+            src: local('Lucida Console'), local('Courier New');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body, html {
+            height: 100%;
+            background-color: #0000aa; /* Exact XP Blue */
+            color: #ffffff;
+            font-family: 'LucidaConsole', monospace;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 5vw;
+            /* Responsive base font size */
+            font-size: clamp(14px, 3.5vw, 18px);
+            line-height: 1.4;
+            cursor: none;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .header-msg {
+            background: #ffffff;
+            color: #0000aa;
+            display: inline-block;
+            padding: 0 8px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .error-title {
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .technical-info {
+            margin-top: 30px;
+            border-top: 2px solid white;
+            padding-top: 10px;
+            font-size: 0.9em;
+        }
+
+        p {
+            margin-bottom: 1.5em;
+        }
+
+        /* Subtle flicker for CRT effect */
+        .flicker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.015);
+            opacity: 0;
+            z-index: 9999;
+            pointer-events: none;
+            animation: flicker-anim 0.1s infinite;
+        }
+
+        @keyframes flicker-anim {
+            0% { opacity: 0.01; }
+            50% { opacity: 0; }
+            100% { opacity: 0.01; }
+        }
+
+        .blink {
+            animation: blink-anim 1s step-end infinite;
+        }
+
+        @keyframes blink-anim {
+            50% { opacity: 0; }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="flicker"></div>
+    <div class="container">
+        <div class="header-msg">System Failure</div>
+        
+        <p class="error-title">A problem has been detected and the system has been halted to prevent damage to your device.</p>
+
+        <p>FATAL_EXCEPTION_ERR</p>
+
+        <p>If this is the first time you've seen this Stop error screen, restart your device. If this screen appears again, follow these steps:</p>
+
+        <p>Check to make sure any new hardware or software is properly installed. If problems continue, disable or remove any newly installed hardware or software.</p>
+
+        <div class="technical-info">
+            <p>Technical information:</p>
+            <p>*** STOP: 0x000000FE (0x00000001, 0x00000002, 0x00000000, 0xE12A34B2)</p>
+            <p>*** system_core.sys - Address E12A34B2 base at E12A3000</p>
+        </div>
+
+        <p style="margin-top: 30px;">Beginning dump of physical memory...</p>
+        <p>Physical memory dump complete.</p>
+        
+        <p>Rebooting system in 2 seconds <span class="blink">_</span></p>
+    </div>
+
+    <script>
+        // Update this path to your terminal file location
+        const NEXT_FILE_PATH = "terminal.html"; 
+
+        function goToNextFile() {
+            window.location.href = NEXT_FILE_PATH;
+        }
+
+        // Automatic redirect after 2000ms (2 seconds)
+        window.onload = function() {
+            setTimeout(goToNextFile, 2000);
+        };
+
+        // Prevent accidental navigation/scrolling on mobile
+        document.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+    </script>
+</body>
+</html>

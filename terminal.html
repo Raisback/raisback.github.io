@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Portfolio XP Console V1.3</title>
+    <!-- External Dependencies -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style_terminal.css">
+</head>
+<body class="flex flex-col h-full hardware-instability">
+    <div class="crt-overlay"></div>
+    <div class="scanline"></div>
+    <div class="glitch-bar"></div>
+
+    <div id="boot-screen" class="p-6 fixed inset-0 z-[200] bg-[#050a00]">
+        <div id="boot-log" class="text-sm leading-tight crt-glow"></div>
+    </div>
+
+    <div id="main-ui" class="hidden opacity-0 flex flex-col h-[100dvh] p-2 sm:p-4 transition-opacity duration-1000">
+        
+        <header class="terminal-border p-2 sm:p-3 mb-2 flex flex-col items-center shrink-0 bg-black/80">
+            <h1 class="text-xl sm:text-3xl crt-glow font-bold tracking-[0.2em] text-center">PORTFOLIO_XP_CONSOLE_V1.3</h1>
+            <p class="text-[10px] sm:text-[12px] opacity-70">UPLINK: MOHAMED_RAISARY // SECTOR: COLOMBO_LK</p>
+            <div class="w-full h-[1px] bg-[var(--phosphor-color)] my-2 opacity-50"></div>
+            
+            <nav class="flex gap-1 sm:gap-2 text-sm overflow-x-auto w-full no-scrollbar justify-start sm:justify-center py-1">
+                <div class="nav-btn active" onclick="showSection('home', this)">[ ROOT ]</div>
+                <div class="nav-btn" onclick="showSection('work', this)">[ DATA ]</div>
+                <div class="nav-btn" onclick="showSection('tech', this)">[ BIOS ]</div>
+                <div class="nav-btn" onclick="showSection('edu', this)">[ ACAD ]</div>
+                <div class="nav-btn" onclick="showSection('comm', this)">[ COMMS ]</div>
+            </nav>
+        </header>
+
+        <main id="content-area" class="flex-grow terminal-border p-3 sm:p-4 bg-black/60 mb-2 relative overflow-hidden">
+            <!-- Home -->
+            <section id="home" class="section-content">
+                <div class="mb-4">
+                    <h2 class="text-3xl sm:text-5xl font-bold crt-glow mb-2 italic tracking-tighter">MOHAMED RAISARY MOWSOOK</h2>
+                    <p class="text-[12px] sm:text-sm opacity-90 border-b-2 border-dashed border-[var(--phosphor-color)] pb-3 mb-4">
+                        DESIGNATION: SOFTWARE ENGINEER INTERN // COLOMBO, SRI LANKA
+                    </p>
+                    
+                    <div class="border border-[var(--phosphor-color)] p-3 bg-white/5 mb-4">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-2">
+                            <h3 class="text-sm font-bold underline italic">MISSION_SUMMARY</h3>
+                            <button onclick="downloadCV()" class="text-[11px] border border-[var(--phosphor-color)] px-3 py-1 bg-black hover:bg-[var(--phosphor-color)] hover:text-black transition-all active:scale-95 font-bold">
+                                [ DOWNLOAD_CV_DATA ]
+                            </button>
+                        </div>
+                        <p class="text-[13px] sm:text-[14px] leading-relaxed">Software Engineer focusing on Web and Mobile Application Development, specializing in cross-platform systems and integrated technologies. Expert in building scalable full-stack web applications using the MERN stack and high-performance mobile apps with Flutter and Native Android. Deep proficiency in C/C++ and ESP-IDF for embedded systems development. Proven ability to architect end-to-end solutions, from cloud-integrated interfaces to local firmware and hardware-level drivers.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="border border-[var(--phosphor-color)]/50 p-3 bg-black/40">
+                            <h3 class="text-sm font-bold mb-2 underline italic">SOFT_PROTOCOLS</h3>
+                            <ul class="text-[12px] space-y-1">
+                                <li>- PROBLEM SOLVING: COMPETITIVE LOGIC</li>
+                                <li>- ADAPTABILITY: WEB TO FIRMWARE</li>
+                                <li>- COLLABORATION: DOCS & PEER REVIEWS</li>
+                            </ul>
+                        </div>
+                        <div class="border border-[var(--phosphor-color)]/50 p-3 bg-black/40">
+                            <h3 class="text-sm font-bold mb-2 underline italic">OPERATIONAL_FOCUS</h3>
+                            <ul class="text-[12px] space-y-1">
+                                <li>- FULL-STACK MERN ARCHITECTURE</li>
+                                <li>- CROSS-PLATFORM MOBILE (FLUTTER)</li>
+                                <li>- EMBEDDED FIRMWARE (ESP-IDF)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="work" class="section-content hidden-section">
+                <h3 class="text-xl mb-4 underline italic">PROJECT_LOGS</h3>
+                <div id="project-container" class="grid gap-4">
+                    <!-- Dynamic Loading -->
+                </div>
+            </section>
+
+            <!-- Skills -->
+            <section id="tech" class="section-content hidden-section">
+                <h3 class="text-xl mb-4 underline">TECHNICAL_SPECIFICATIONS</h3>
+                <div class="space-y-4">
+                    <div>
+                        <h4 class="text-sm font-bold mb-1">[ PROGRAMMING_KERNEL ]</h4>
+                        <div class="skill-bar-container"><div class="skill-bar-fill" style="width: 90%"></div></div>
+                        <p class="text-[11px] mt-1 opacity-80">PYTHON, C/C++, JAVA, DART, JAVASCRIPT, SQL, BASH</p>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold mb-1">[ LOGIC_&_DSA ]</h4>
+                        <div class="skill-bar-container"><div class="skill-bar-fill" style="width: 95%"></div></div>
+                        <p class="text-[11px] mt-1 opacity-70">DATA STRUCTURES, ALGORITHMS, CORE OOP</p>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold mb-1">[ FRAMEWORKS_&_WEB ]</h4>
+                        <div class="skill-bar-container"><div class="skill-bar-fill" style="width: 88%"></div></div>
+                        <p class="text-[11px] mt-1 opacity-80">FLUTTER, ANDROID SDK, REACT.JS, NODE.JS, LARAVEL, ESP-IDF</p>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold mb-1">[ DB_&_CLOUD ]</h4>
+                        <div class="skill-bar-container"><div class="skill-bar-fill" style="width: 82%"></div></div>
+                        <p class="text-[11px] mt-1 opacity-80">FIREBASE, MONGODB, MYSQL, SQLITE</p>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold mb-1">[ TOOLS_&_ENVIRONMENTS ]</h4>
+                        <div class="skill-bar-container"><div class="skill-bar-fill" style="width: 92%"></div></div>
+                        <p class="text-[11px] mt-1 opacity-80">LINUX (3+ YEARS), GIT, POSTMAN, CI/CD, JIRA, VIM</p>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold mb-1">[ SPECIALIZED_CYBER_&_AI ]</h4>
+                        <div class="skill-bar-container"><div class="skill-bar-fill" style="width: 85%"></div></div>
+                        <p class="text-[11px] mt-1 opacity-70">OWASP FUNDAMENTALS, AI ARCHITECTURE, IOT SECURITY</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Academic Section -->
+            <section id="edu" class="section-content hidden-section">
+                <h3 class="text-xl mb-4 underline">ACADEMIC_&_VALIDATION</h3>
+                
+                <div class="space-y-6">
+                    <div class="border-l-2 border-[var(--phosphor-color)] pl-3">
+                        <h4 class="text-md sm:text-lg font-bold text-[var(--phosphor-color)]">UNIVERSITY OF COLOMBO</h4>
+                        <p class="text-[13px] sm:text-[15px]">FACULTY OF TECHNOLOGY</p>
+                        <p class="text-[13px] sm:text-[15px]">BACHELOR OF INFORMATION AND COMMUNICATION TECHNOLOGY HONOURS</p>
+                        <p class="text-[11px] opacity-70 italic">COLOMBO, SRI LANKA // 2023 - PRESENT</p>
+                    </div>
+
+                    <div class="border-l-2 border-[var(--phosphor-color)]/70 pl-3">
+                        <h4 class="text-md sm:text-lg font-bold">ADVANCED LEVEL: ENGINEERING TECHNOLOGY</h4>
+                        <p class="text-[13px] sm:text-[14px]">GRADES: 3A // Z-SCORE: 2.5906</p>
+                        <p class="text-[13px] sm:text-[14px]">T/KIN/KINNIYA AL AQSA NATIONAL SCHOOL</p>
+                        <p class="text-[11px] opacity-70 italic">KINNIYA, SRI LANKA // 2019 - 2021</p>
+                    </div>
+
+                    <div class="border-l-2 border-[var(--phosphor-color)]/40 pl-3">
+                        <h4 class="text-md sm:text-lg font-bold">ORDINARY LEVEL</h4>
+                        <p class="text-[13px] sm:text-[14px]">KEY GRADES: SCIENCE - A, MATHEMATICS - A</p>
+                        <p class="text-[13px] sm:text-[14px]">T/KIN/KINNIYA AL AQSA NATIONAL SCHOOL</p>
+                        <p class="text-[11px] opacity-70 italic">KINNIYA, SRI LANKA // 2017 - 2018</p>
+                    </div>
+
+                    <div class="pt-2">
+                        <h3 class="text-sm font-bold underline mb-3 italic">CERTIFICATIONS_UPLINK</h3>
+                        <div class="text-[12px] sm:text-[14px] space-y-2">
+                            <div class="flex items-center gap-2">
+                                <span class="text-[var(--phosphor-color)]">></span>
+                                <span>IBM: THREAT INTELLIGENCE AND HUNTING</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[var(--phosphor-color)]">></span>
+                                <span>IBM: CYBERSECURITY FUNDAMENTALS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Updated Comms Section -->
+            <section id="comm" class="section-content hidden-section">
+                <h3 class="text-xl mb-4 underline">UPLINK_COMMUNICATIONS</h3>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 h-full">
+                    
+                    <!-- Left Column: Links and Info -->
+                    <div class="lg:col-span-5 flex flex-col gap-4">
+                        <div class="border border-[var(--phosphor-color)] p-3 bg-black">
+                            <h4 class="text-sm font-bold mb-2 underline">CONTACT_NODES</h4>
+                            <p class="text-[13px]">EMAIL: RAIZISBACK@GMAIL.COM</p>
+                            <p class="text-[13px]">PHONE: +94 753511308</p>
+                            <p class="text-[13px]">LOC: COLOMBO, SRI LANKA</p>
+                        </div>
+                        
+                        <div class="border border-[var(--phosphor-color)] p-3 bg-black flex-grow">
+                            <h4 class="text-sm font-bold mb-3 underline">EXTERNAL_LINKS</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2">
+                                <a href="https://github.com/RAISBACK" target="_blank" class="link-btn">[ GITHUB_NODE ]</a>
+                                <a href="https://linkedin.com/in/RAISARY" target="_blank" class="link-btn">[ LINKEDIN_NODE ]</a>
+                                <a href="https://hackaday.io/Raisback" target="_blank" class="link-btn">[ HACKADAY_UPLINK ]</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Packet Transmit -->
+                    <div class="lg:col-span-7">
+                        <div class="border border-[var(--phosphor-color)] p-3 bg-black h-full flex flex-col">
+                            <h4 class="text-sm font-bold mb-2 underline italic">TRANSMIT_MESSAGE_PACKET</h4>
+                            
+                            <form action="https://formspree.io/f/mqearwjp" method="POST" id="contact-form" class="flex flex-col gap-3 flex-grow">
+                                <input type="email" name="email" required
+                                    class="w-full bg-[#0a1000] border border-[var(--phosphor-color)]/40 p-2 text-[12px] text-[var(--phosphor-color)]" 
+                                    placeholder="ENTER_YOUR_EMAIL_UPLINK...">
+                                
+                                <textarea name="message" required
+                                    class="w-full bg-[#0a1000] border border-[var(--phosphor-color)]/40 p-2 text-[12px] text-[var(--phosphor-color)] resize-none flex-grow min-h-[120px]" 
+                                    placeholder="ENTER_DATA_PACKET_CONTENT..."></textarea>
+                                
+                                <div class="flex justify-between items-center mt-auto pt-2">
+                                    <div id="packet-status" class="text-[10px] opacity-60 italic h-3"></div>
+                                    <button type="submit" 
+                                        class="bg-[var(--phosphor-color)] text-black font-bold py-1 px-8 text-sm hover:bg-black hover:text-[var(--phosphor-color)] border border-[var(--phosphor-color)] transition-all active:scale-95">
+                                        [ SEND_PACKET ]
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-[10px] sm:text-[12px] flex justify-between px-1 shrink-0 mb-1 font-bold">
+            <span class="animate-pulse">WARNING: SIGNAL_DEGRADATION</span>
+            <span id="system-time"></span>
+        </footer>
+    </div>
+
+    <script src="terminal_scripts.js"></script>
+</body>
+</html>

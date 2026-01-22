@@ -2,561 +2,80 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>M. RAISARY // RAISBACK_SYSTEM_V4</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio XP</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
-        :root {
-            --cobalt: #00d2ff; 
-            --cobalt-dim: rgba(0, 210, 255, 0.15);
-            --cobalt-glow: rgba(0, 210, 255, 0.5);
-            --bg-color: #00080d;
-            --scanline-color: rgba(0, 210, 255, 0.07);
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--cobalt);
-            font-family: 'VT323', monospace;
-            text-transform: uppercase;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            animation: body-shake 10s infinite;
-        }
-
-        @keyframes body-shake {
-            0%, 100% { transform: translate(0, 0); }
-            1% { transform: translate(0.5px, 0.5px); }
-            2% { transform: translate(-0.5px, -0.5px); }
-            3% { transform: translate(0, 0); }
-        }
-
-        .screen {
-            position: relative;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            background: radial-gradient(circle at center, #001f33 0%, #000408 100%);
-        }
-
-        .screen::after {
-            content: " ";
-            display: block;
-            position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: radial-gradient(circle, rgba(18, 16, 16, 0) 40%, rgba(0, 0, 0, 0.5) 100%);
-            z-index: 110;
-            pointer-events: none;
-        }
-
-        .noise {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_pnt_noise.png');
-            opacity: 0.08;
-            pointer-events: none;
-            z-index: 105;
-            animation: noise-move 0.2s infinite steps(2);
-        }
-
-        @keyframes noise-move {
-            0% { transform: translate(0,0); }
-            50% { transform: translate(-5%, -5%); }
-            100% { transform: translate(5%, 5%); }
-        }
-
-        .scanlines {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(
-                var(--scanline-color) 50%, 
-                transparent 50%
-            );
-            background-size: 100% 4px;
-            z-index: 100;
-            pointer-events: none;
-        }
-
-        .crt-glow {
-            text-shadow: 
-                1.5px 0 1px rgba(255,0,0,0.5),
-                -1.5px 0 1px rgba(0,255,255,0.5),
-                0 0 5px var(--cobalt-glow);
-        }
-
-        .status-bar {
-            height: 54px;
-            border-bottom: 3px double var(--cobalt);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 15px;
-            background: rgba(0, 210, 255, 0.05);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        .content-shell {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .nav-deck {
-            height: 50px;
-            border-bottom: 1px solid var(--cobalt);
-            display: flex;
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .nav-tab {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-right: 1px solid var(--cobalt);
-            font-size: 15px;
-            cursor: pointer;
-            transition: all 0.1s;
-            position: relative;
-            overflow: hidden;
-            letter-spacing: 1px;
-        }
-
-        .nav-tab:hover { background: var(--cobalt-dim); }
-
-        .nav-tab.active {
-            background: var(--cobalt);
-            color: #000;
-            font-weight: bold;
-            box-shadow: 0 0 20px var(--cobalt-glow);
-        }
-
-        .data-stream {
-            flex-grow: 1;
-            padding: 20px;
-            overflow-y: auto;
-            position: relative;
-            scrollbar-width: thin;
-            scrollbar-color: var(--cobalt) transparent;
-        }
-
-        .data-stream::-webkit-scrollbar { width: 4px; }
-        .data-stream::-webkit-scrollbar-thumb { background: var(--cobalt); }
-
-        .command-line {
-            height: 35px;
-            border-top: 1px solid var(--cobalt);
-            display: flex;
-            align-items: center;
-            padding: 0 15px;
-            font-size: 11px;
-            background: #000;
-        }
-
-        .glitch-bar {
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            background: var(--cobalt);
-            opacity: 0.3;
-            z-index: 120;
-            pointer-events: none;
-            animation: glitch-bar-anim 4s infinite linear;
-        }
-
-        @keyframes glitch-bar-anim {
-            0% { top: -10%; }
-            10% { top: 40%; opacity: 0.8; }
-            11% { top: 40%; opacity: 0; }
-            50% { top: 80%; opacity: 0.5; }
-            100% { top: 110%; }
-        }
-
-        .hidden-section { display: none; }
-
-        .signal-glitch {
-            animation: signal-loss 0.15s steps(2) infinite;
-        }
-
-        @keyframes signal-loss {
-            0% { opacity: 0.8; transform: translateX(-2px) skewX(2deg); }
-            50% { opacity: 1; transform: translateX(2px) skewX(-2deg); }
-            100% { opacity: 0.9; transform: translateX(0); }
-        }
-
-        .typing::after {
-            content: "█";
-            animation: blink 0.8s step-end infinite;
-        }
-
-        @keyframes blink { 50% { opacity: 0; } }
-
-        .data-card {
-            border: 1px solid var(--cobalt);
-            padding: 15px;
-            background: rgba(0, 210, 255, 0.03);
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .data-card::before {
-            content: attr(data-label);
-            position: absolute;
-            top: -10px; right: 10px;
-            background: var(--bg-color);
-            padding: 0 5px;
-            font-size: 10px;
-            color: var(--cobalt-glow);
-        }
-
-        .skill-bar-bg {
-            height: 4px;
-            background: var(--cobalt-dim);
-            position: relative;
-            margin: 10px 0 20px 0;
-        }
-
-        .skill-bar-fill {
-            height: 100%;
-            background: var(--cobalt);
-            box-shadow: 0 0 10px var(--cobalt-glow);
-        }
-
-        .link-btn {
-            display: inline-block;
-            border: 1px solid var(--cobalt);
-            padding: 4px 10px;
-            font-size: 12px;
-            margin-top: 10px;
-            transition: all 0.2s;
-        }
-
-        .link-btn:hover {
-            background: var(--cobalt);
-            color: #000;
-        }
-    </style>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="login_page.css">
 </head>
-<body>
-    <div class="screen">
-        <div class="noise"></div>
-        <div class="scanlines"></div>
-        <div class="glitch-bar"></div>
+<body class="flex flex-col">
 
-        <div id="boot-screen" class="p-8 fixed inset-0 z-[200] bg-[#00080d] flex flex-col justify-start">
-            <div id="boot-log" class="text-sm leading-relaxed crt-glow"></div>
+    <!-- Top Blue Bar -->
+    <div class="h-16 md:h-20 w-full xp-top-bar border-b-2 border-[#ffffff33] shrink-0"></div>
+
+    <!-- Main Section -->
+    <div id="login-container" class="flex-grow flex panel-container xp-blue-gradient relative">
+        
+        <!-- Left Side: Branding -->
+        <div class="brand-side w-1/2 flex flex-col items-end justify-center pr-12 text-white">
+            <div class="brand-text-wrapper text-center md:text-right">
+                <h1 class="text-4xl md:text-6xl font-bold italic tracking-tighter mb-1 drop-shadow-lg leading-tight">
+                    My Portfolio <span class="text-[#ff9900] font-black">XP</span>
+                </h1>
+                <p class="text-lg md:text-xl opacity-90 font-light">To begin, click your user name</p>
+            </div>
         </div>
 
-        <div id="main-ui" class="hidden flex flex-col h-full opacity-0 transition-opacity duration-1000">
-            <header class="status-bar">
-                <div class="flex items-center gap-2">
-                    <div class="w-4 h-4 border border-[var(--cobalt)] flex items-center justify-center">
-                        <div class="w-2 h-2 bg-[var(--cobalt)] animate-ping"></div>
-                    </div>
-                    <span class="text-xl font-bold tracking-widest crt-glow uppercase">RAISBACK_SYSTEM_V4.1</span>
+        <!-- Vertical/Horizontal Divider -->
+        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[2px] h-3/4 divider"></div>
+
+        <!-- Right Side: User Selection -->
+        <div class="user-side w-1/2 flex flex-col justify-center pl-12 gap-4 md:gap-6">
+            
+            <!-- Mobile User: Now allowed for everyone -->
+            <div id="mobile-user" class="user-row flex items-center group cursor-pointer p-1 rounded-md transition-all max-w-sm" onclick="handleLogin('mobile')">
+                <div class="avatar-box w-12 h-12 flex items-center justify-center bg-white rounded border-2 border-[#ffffff66] overflow-hidden shrink-0">
+                    <img src="https://api.dicebear.com/7.x/pixel-art/svg?seed=mobile&backgroundColor=b6e3f4" alt="Mobile User" class="w-full h-full object-cover">
                 </div>
-                <div class="text-[10px] text-right font-bold hidden md:block">
-                    UPLINK: COLOMBO_SRI_LANKA <br>
-                    TIME: <span id="clock" class="text-white">--:--:--</span>
+                <div class="ml-4 flex flex-col text-left">
+                    <span class="user-name text-lg md:text-xl font-bold text-white">Mobile User</span>
                 </div>
-            </header>
-
-            <div class="content-shell">
-                <nav class="nav-deck">
-                    <div class="nav-tab active" onclick="showSection('home', this)">PROFILE</div>
-                    <div class="nav-tab" onclick="showSection('work', this)">PROJECTS</div>
-                    <div class="nav-tab" onclick="showSection('tech', this)">SPECS</div>
-                    <div class="nav-tab" onclick="showSection('edu', this)">ACADEMIC</div>
-                    <div class="nav-tab" onclick="showSection('logs', this)">CONTACT</div>
-                </nav>
-
-                <main id="data-stream" class="data-stream">
-                    <!-- Home Section -->
-                    <section id="home" class="section-content">
-                        <div class="mb-8">
-                            <h2 class="text-4xl md:text-5xl font-bold crt-glow mb-2 italic">MOHAMED_RAISARY</h2>
-                            <p class="text-sm md:text-lg opacity-80 border-b-2 border-double border-[var(--cobalt)] pb-4">
-                                ROLE: <span class="text-white">SOFTWARE ENGINEER // WEB & MOBILE // EMBEDDED SYSTEMS</span>
-                            </p>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 gap-6">
-                            <div class="data-card" data-label="PROFESSIONAL_SUMMARY">
-                                <h3 class="font-bold mb-3 text-white">MISSION_OVERVIEW</h3>
-                                <p class="text-sm leading-relaxed">
-                                    Software Engineer with a strong focus on Web and Mobile Application Development, specializing in cross-platform systems and integrated technologies. Expert in building scalable full-stack web applications using the MERN stack (React, Node.js) and high-performance mobile apps with Flutter and Native Android. Complementing this is a deep proficiency in C/C++ and ESP-IDF for embedded systems development. Proven ability to architect end-to-end solutions, from cloud-integrated user interfaces to local firmware and hardware-level drivers, while leveraging robust Data Structures and Algorithms to ensure system efficiency.
-                                </p>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Projects Section -->
-                    <section id="work" class="section-content hidden-section">
-                        <h3 class="text-2xl mb-6 font-bold crt-glow italic">PROJECT_ARCHIVE</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <!-- Lo-Buddy -->
-                            <div class="data-card" data-label="AI_FLUTTER">
-                                <h4 class="text-lg font-bold text-white">LO-BUDDY | SECURE OFFLINE LLM</h4>
-                                <p class="text-xs mt-2 opacity-70">Developing a high-performance Flutter application powered by the Gemma 270M model, running entirely on-device to ensure maximum user privacy. (Ongoing)</p>
-                            </div>
-                            <!-- SprintMaster -->
-                            <div class="data-card" data-label="WEB_MERN">
-                                <h4 class="text-lg font-bold text-white">SPRINTMASTER | AGILE SUITE</h4>
-                                <p class="text-xs mt-2 opacity-70">Web-based task management focused on Agile/Scrum. Features sprint tracking, velocity charts, and team collaboration modules.</p>
-                            </div>
-                            <!-- Security Multi-tool -->
-                            <div class="data-card" data-label="HARDWARE_SBT">
-                                <h4 class="text-lg font-bold text-white">SECURITY RESEARCH MULTI-TOOL</h4>
-                                <p class="text-xs mt-2 opacity-70">Portable ESP32-S3 based tool for vulnerability assessment. Custom graphics engine + SD-card dynamic loading. (Ongoing)</p>
-                            </div>
-                            <!-- Pixel2Bytes -->
-                            <div class="data-card" data-label="WEB_TAILWIND">
-                                <h4 class="text-lg font-bold text-white">PIXEL2BYTES | GRAPHICS TOOL</h4>
-                                <p class="text-xs mt-2 opacity-70">Dedicated online tool to facilitate creation of sprite sheets and pixel graphics tailored for embedded systems (OLED/LCD).</p>
-                            </div>
-                            <!-- Construction TaskFlow -->
-                            <div class="data-card" data-label="WEB_MERN">
-                                <h4 class="text-lg font-bold text-white">CONSTRUCTION TASKFLOW | ERP</h4>
-                                <p class="text-xs mt-2 opacity-70">Robust web app to streamline construction project management. Real-time scheduling, resource allocation, and budget tracking.</p>
-                            </div>
-                            <!-- Tech Press -->
-                            <div class="data-card" data-label="MOBILE_NATIVE">
-                                <h4 class="text-lg font-bold text-white">TECH PRESS | MOBILE NEWS</h4>
-                                <p class="text-xs mt-2 opacity-70">Native Android app (Java) for real-time updates. Unified codebase for Mobile and Desktop environments.</p>
-                            </div>
-                            <!-- Xeno Space -->
-                            <div class="data-card" data-label="FLUTTER_FIREBASE">
-                                <h4 class="text-lg font-bold text-white">XENO SPACE | CHAT SPACE</h4>
-                                <p class="text-xs mt-2 opacity-70">Cross-platform collaborative chat for developers. Real-time resource sharing via Firebase integration.</p>
-                            </div>
-                            <!-- Embedded Displays -->
-                            <div class="data-card" data-label="DRVR_DEV">
-                                <h4 class="text-lg font-bold text-white">EMBEDDED DISPLAY DRIVERS</h4>
-                                <p class="text-xs mt-2 opacity-70">Optimized C/ESP-IDF drivers for SSD1306 and Nokia 5110 using I2C/SPI Protocols.</p>
-                            </div>
-                            <!-- Mobile Remote -->
-                            <div class="data-card" data-label="IOT_CONTROL">
-                                <h4 class="text-lg font-bold text-white">MOBILE REMOTE CONTROLLER</h4>
-                                <p class="text-xs mt-2 opacity-70">Java/C++ client-server system controlling an ESP8266 via custom Wi-Fi TCP/IP protocols.</p>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Spec Section -->
-                    <section id="tech" class="section-content hidden-section">
-                        <h3 class="text-2xl mb-6 font-bold crt-glow italic">FULL_STACK_SPECIFICATIONS</h3>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12">
-                            <div>
-                                <h4 class="text-xs mb-4 border-l-2 border-[var(--cobalt)] pl-2">PROGRAMMING_LANGUAGES</h4>
-                                <div class="flex flex-wrap gap-2 mb-6">
-                                    <span class="text-[11px] border border-[var(--cobalt-dim)] px-2 bg-black/40 text-white">PYTHON</span>
-                                    <span class="text-[11px] border border-[var(--cobalt-dim)] px-2 bg-black/40 text-white">C/C++</span>
-                                    <span class="text-[11px] border border-[var(--cobalt-dim)] px-2 bg-black/40 text-white">JAVA</span>
-                                    <span class="text-[11px] border border-[var(--cobalt-dim)] px-2 bg-black/40 text-white">DART</span>
-                                    <span class="text-[11px] border border-[var(--cobalt-dim)] px-2 bg-black/40 text-white">JAVASCRIPT</span>
-                                    <span class="text-[11px] border border-[var(--cobalt-dim)] px-2 bg-black/40 text-white">SQL</span>
-                                    <span class="text-[11px] border border-[var(--cobalt-dim)] px-2 bg-black/40 text-white">BASH</span>
-                                </div>
-
-                                <h4 class="text-xs mb-4 border-l-2 border-[var(--cobalt)] pl-2">FRAMEWORKS_&_WEB</h4>
-                                <div class="flex flex-wrap gap-2 mb-6">
-                                    <span class="text-[11px] border border-[var(--cobalt-dim)] px-2">FLUTTER</span>
-                                    <span class="text-[11px] border border-[var(--cobalt-dim)] px-2">ANDROID SDK (NATIVE)</span>
-                                    <span class="text-[11px] border border-[var(--cobalt-dim)] px-2">REACT.JS</span>
-                                    <span class="text-[11px] border border-[var(--cobalt-dim)] px-2">NODE.JS</span>
-                                    <span class="text-[11px] border border-[var(--cobalt-dim)] px-2">LARAVEL</span>
-                                    <span class="text-[11px] border border-[var(--cobalt-dim)] px-2">PYQT</span>
-                                    <span class="text-[11px] border border-[var(--cobalt-dim)] px-2">ESP-IDF</span>
-                                </div>
-
-                                <h4 class="text-xs mb-4 border-l-2 border-[var(--cobalt)] pl-2">DATABASES_&_CLOUD</h4>
-                                <div class="flex flex-wrap gap-2 mb-6">
-                                    <span class="text-[11px] border border-[var(--cobalt-dim)] px-2">FIREBASE (AUTH, FIRESTORE, RTDB)</span>
-                                    <span class="text-[11px] border border-[var(--cobalt-dim)] px-2">MONGODB</span>
-                                    <span class="text-[11px] border border-[var(--cobalt-dim)] px-2">MYSQL</span>
-                                    <span class="text-[11px] border border-[var(--cobalt-dim)] px-2">SQLITE</span>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h4 class="text-xs mb-4 border-l-2 border-[var(--cobalt)] pl-2">CORE_CS_&_SPECIALIZED</h4>
-                                <div class="mb-4">
-                                    <div class="flex justify-between text-[10px]"><span>DSA & LOGIC</span><span>95%</span></div>
-                                    <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 95%;"></div></div>
-                                    <p class="text-[9px] opacity-70 -mt-3 mb-4">LOGICAL PROBLEM SOLVING // CORE OOP</p>
-                                </div>
-                                <div class="mb-4">
-                                    <div class="flex justify-between text-[10px]"><span>SYSTEM INTEGRATION</span><span>90%</span></div>
-                                    <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 90%;"></div></div>
-                                    <p class="text-[9px] opacity-70 -mt-3 mb-4">IOT SOLUTIONS // NETWORKING // HW DIAGNOSIS</p>
-                                </div>
-                                <div class="mb-4">
-                                    <div class="flex justify-between text-[10px]"><span>CYBER & AI</span><span>85%</span></div>
-                                    <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 85%;"></div></div>
-                                    <p class="text-[9px] opacity-70 -mt-3 mb-4">OWASP FUNDAMENTALS // AI ARCHITECTURE</p>
-                                </div>
-
-                                <h4 class="text-xs mb-4 border-l-2 border-[var(--cobalt)] pl-2">TOOLS_&_AGILE</h4>
-                                <p class="text-[11px] mb-2">GIT/GITHUB // POSTMAN // CI/CD // LINUX (3+ YEARS)</p>
-                                <p class="text-[11px] opacity-70">SCRUM // SPRINT PLANNING // JIRA // GITHUB PROJECTS</p>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                            <div class="data-card" data-label="SOFT_SKILLS">
-                                <p class="text-[11px] leading-tight">
-                                    <span class="text-white">PROBLEM SOLVING:</span> Strong analytical skills sharpened through competitive programming logic.<br>
-                                    <span class="text-white">ADAPTABILITY:</span> Proven ability to switch between high-level web dev and low-level firmware.<br>
-                                    <span class="text-white">COMMUNICATION:</span> Collaborative team player experienced in technical documentation and peer reviews.
-                                </p>
-                            </div>
-                            <div class="data-card" data-label="SEC_CERTIFICATES">
-                                <p class="text-[11px] leading-tight">
-                                    IBM | THREAT INTELLIGENCE & HUNTING<br>
-                                    IBM | CYBERSECURITY FUNDAMENTALS<br>
-                                    GOOGLE | GENERATIVE AI FUNDAMENTALS
-                                </p>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Education Section -->
-                    <section id="edu" class="section-content hidden-section">
-                        <h3 class="text-2xl mb-6 font-bold crt-glow">ACADEMIC_RECORD</h3>
-                        <div class="space-y-6">
-                            <div class="border-l-2 border-[var(--cobalt)] pl-4 relative">
-                                <div class="flex justify-between items-start">
-                                    <div>
-                                        <h4 class="text-white font-bold">UNIVERSITY OF COLOMBO</h4>
-                                        <p class="text-xs uppercase">B.ICT HONOURS - Faculty of Technology</p>
-                                    </div>
-                                    <p class="text-[10px] opacity-60 text-right">2023 — PRESENT</p>
-                                </div>
-                            </div>
-                            
-                            <div class="border-l-2 border-[var(--cobalt)] pl-4">
-                                <div class="flex justify-between items-start">
-                                    <div>
-                                        <h4 class="text-white font-bold">T/KIN/KINNIYA AL AQSA NATIONAL SCHOOL</h4>
-                                        <p class="text-xs uppercase">Advanced Level (Engineering Technology)</p>
-                                        <p class="text-[10px] text-[var(--cobalt)] mt-1">GRADES: 3A | Z-SCORE: 2.5906</p>
-                                    </div>
-                                    <p class="text-[10px] opacity-60 text-right">2019 — 2021</p>
-                                </div>
-                            </div>
-
-                            <div class="border-l-2 border-[var(--cobalt)] pl-4">
-                                <div class="flex justify-between items-start">
-                                    <div>
-                                        <h4 class="text-white font-bold">T/KIN/KINNIYA AL AQSA NATIONAL SCHOOL</h4>
-                                        <p class="text-xs uppercase">Ordinary Level</p>
-                                        <p class="text-[10px] text-[var(--cobalt)] mt-1">SCIENCE: A | MATHEMATICS: A</p>
-                                    </div>
-                                    <p class="text-[10px] opacity-60 text-right">2017 — 2018</p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Contact Section -->
-                    <section id="logs" class="section-content hidden-section">
-                        <h3 class="text-2xl mb-6 font-bold crt-glow">COMM_CHANNELS</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="data-card" data-label="DIRECT_UPLINK">
-                                <p class="text-sm">MAIL: <a href="mailto:Raizisback@gmail.com" class="text-white underline">Raizisback@gmail.com</a></p>
-                                <p class="text-sm mt-2">TEL: +94 753511308</p>
-                                <div class="flex flex-wrap gap-2 mt-4">
-                                    <a href="https://github.com/Raisback" class="link-btn" target="_blank">GITHUB</a>
-                                    <a href="https://linkedin.com/in/Raisary" class="link-btn" target="_blank">LINKEDIN</a>
-                                    <a href="https://hackaday.io/Raisback" class="link-btn" target="_blank">HACKADAY</a>
-                                </div>
-                            </div>
-                            <div class="data-card" data-label="TERMINAL_MSG">
-                                <textarea class="w-full bg-black/60 border border-[var(--cobalt)] p-2 text-xs outline-none focus:border-white h-24 resize-none" placeholder="ENCRYPTED MESSAGE..."></textarea>
-                                <button class="w-full mt-2 py-2 bg-[var(--cobalt)] text-black font-bold text-xs hover:bg-white">SEND_PACKET</button>
-                            </div>
-                        </div>
-                    </section>
-                </main>
             </div>
 
-            <footer class="command-line">
-                <span class="mr-2 text-white font-bold italic">RAISBACK@ROOT:></span>
-                <span class="typing" id="footer-text">SYSTEM_READY</span>
-            </footer>
+            <!-- Desktop User: Still restricted for actual mobile devices -->
+            <div id="desktop-user" class="user-row flex items-center group cursor-pointer p-1 rounded-md transition-all max-w-sm" onclick="handleLogin('desktop')">
+                <div class="avatar-box w-12 h-12 flex items-center justify-center bg-white rounded border-2 border-[#ffffff66] overflow-hidden shrink-0">
+                    <img src="https://api.dicebear.com/7.x/pixel-art/svg?seed=desktop&backgroundColor=c0aede" alt="Desktop User" class="w-full h-full object-cover">
+                </div>
+                <div class="ml-4 flex flex-col text-left">
+                    <span class="user-name text-lg md:text-xl font-bold text-white">Desktop User</span>
+                    <span class="error-msg">Access denied: Desktop only</span>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <script>
-        function updateClock() {
-            const now = new Date();
-            document.getElementById('clock').innerText = now.toTimeString().split(' ')[0];
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
+    <!-- Bottom Action Bar -->
+    <div class="h-20 md:h-24 w-full xp-bottom-bar border-t-2 border-[#ffffff33] flex items-center justify-between px-6 md:px-10 text-white shrink-0">
+        <button class="flex items-center gap-2 group focus:outline-none" onclick="location.reload()">
+            <div class="bg-[#e43118] rounded-md p-0.5 border-2 border-[#ffffffcc] group-hover:brightness-110 transition-all shadow-[1px_1px_2px_rgba(0,0,0,0.5)]">
+                <svg width="22" height="22" class="md:w-7 md:h-7" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18.36 6.64a9 9 0 1 1-12.73 0" />
+                    <line x1="12" y1="2" x2="12" y2="12" />
+                </svg>
+            </div>
+            <span class="text-base md:text-lg font-semibold drop-shadow-md">Turn off computer</span>
+        </button>
 
-        const logs = [
-            "INITIALIZING RAISBACK_OS_V4.1",
-            "SCANNING_PHYS_MEM... 2.5906_Z_SCORE [OK]",
-            "MOUNTING_UNIVERSITY_OF_COLOMBO_FS...",
-            "LOADING_EMBEDDED_MODULES (ESP32/STM32)...",
-            "VERIFYING_MERN_STACK_INTEGRITY...",
-            "UPLINK_ESTABLISHED: HACKADAY.IO/RAISBACK",
-            "ACCESS_GRANTED."
-        ];
+        <div class="hidden sm:block opacity-80 italic text-[10px] md:text-sm leading-tight text-right">
+            After you log on, you can add or change accounts.<br />
+            Just go to Control Panel and click User Accounts.
+        </div>
+    </div>
 
-        let logIndex = 0;
-        function typeBootLog() {
-            if (logIndex < logs.length) {
-                const line = document.createElement('div');
-                line.className = 'mb-1';
-                line.innerText = '> ' + logs[logIndex];
-                document.getElementById('boot-log').appendChild(line);
-                logIndex++;
-                setTimeout(typeBootLog, 150);
-            } else {
-                setTimeout(() => {
-                    document.getElementById('boot-screen').style.display = 'none';
-                    const main = document.getElementById('main-ui');
-                    main.classList.remove('hidden');
-                    setTimeout(() => main.classList.add('opacity-100'), 50);
-                }, 800);
-            }
-        }
-        window.onload = typeBootLog;
-
-        function showSection(id, btn) {
-            document.body.classList.add('signal-glitch');
-            setTimeout(() => document.body.classList.remove('signal-glitch'), 150);
-
-            document.querySelectorAll('.section-content').forEach(s => s.classList.add('hidden-section'));
-            document.getElementById(id).classList.remove('hidden-section');
-            document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            document.getElementById('footer-text').innerText = `SECTOR_${id.toUpperCase()}_LOADED`;
-            setTimeout(() => {
-                document.getElementById('footer-text').innerText = "SYSTEM_READY";
-            }, 2000);
-
-            document.getElementById('data-stream').scrollTop = 0;
-        }
-
-        setInterval(() => {
-            if (Math.random() > 0.98) {
-                document.body.style.filter = 'contrast(2) brightness(1.5) hue-rotate(90deg)';
-                setTimeout(() => document.body.style.filter = 'none', 80);
-            }
-        }, 4000);
-    </script>
+    <!-- External JS -->
+    <script src="login_script.js"></script>
 </body>
 </html>

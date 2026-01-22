@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows XP Dark Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="desktop" id="desktop">
+        <div class="desktop-icon" onclick="openWindow('projects-win', 'My Projects', 'projects.png')">
+            <img src="projects.png" alt="Projects" class="icon-img">
+            <span>My Projects</span>
+        </div>
+
+        <div class="desktop-icon" onclick="openWindow('skills-win', 'My Skills', 'skills.png')">
+            <img src="skills.png" alt="Skills" class="icon-img">
+            <span>My Skills</span>
+        </div>
+
+        <div class="desktop-icon" onclick="openWindow('about-win', 'My_Info.txt', 'resume.png')">
+            <img src="recycle.png" alt="Resume" class="icon-img">
+            <span>Info Bin</span>
+        </div>
+
+        <div class="desktop-icon" onclick="openWindow('contact-win', 'Contact.lnk', 'contact.png')">
+            <img src="contact.png" alt="Contact" class="icon-img">
+            <span>Contact.ink</span>
+        </div>
+        
+        
+
+        
+
+
+        <div class="desktop-icon" onclick="openWindow('games-win', 'Games Folder', 'folder_icon.png')">
+            <img src="folder_icon.png" alt="Games" class="icon-img">
+            <span>Games Folder</span>
+        </div>
+
+        
+
+        <div class="desktop-icon" onclick="downloadCV()">
+            <img src="icons/pdf_icon.png" alt="CV" class="icon-img">
+            <span>My_CV_2026.pdf</span>
+        </div>
+
+        <div class="desktop-icon" onclick="openWindow('game-launcher-win', 'Game Launcher', 'icons/game_ico.png')">
+             <img src="icons/game_ico.png" alt="Game" class="icon-img">
+             <span>Try This</span>
+        </div>    
+
+    </div>
+
+
+
+     <div id="game-launcher-win" class="window" style="top: 200px; left: 300px; width: 320px;">
+    <div class="window-header" onmousedown="dragStart(event, 'game-launcher-win')">
+        <div class="window-title"><span>🎮</span> Game Launcher</div>
+        <div class="window-controls">
+            <div class="control-btn close-btn" onclick="closeWindow('game-launcher-win')">X</div>
+        </div>
+    </div>
+    <div class="window-content bg-[#ece9d8] p-4">
+        <div class="flex flex-col gap-3 text-sm">
+            <p class="font-bold text-blue-900">Messenger.abeto</p>
+            <p class="text-gray-700 leading-tight">
+                This is a web-based game. Click the button below to launch the game in a full browser window for the best experience.
+            </p>
+            <hr class="border-gray-400">
+            <div class="flex justify-end">
+                <button 
+                    onclick="window.open('https://messenger.abeto.co/', '_blank')" 
+                    class="bg-[#ece9d8] border border-gray-700 px-4 py-1 shadow-[inset_-1px_-1px_1px_#808080] active:shadow [inset_1px_1px_1px_#808080] hover:bg-gray-200"
+                >
+                    Launch Game
+                </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="error-modal" id="error-modal">
+        <div class="error-header">
+            <span>Critical System Error</span>
+            <div class="control-btn close-btn" style="width:16px; height:16px; font-size:10px;" onclick="closeError()">X</div>
+        </div>
+        <div class="error-body">
+            <div class="error-icon-circle">X</div>
+            <div class="error-text">
+                Access Denied. The system administrator has restricted access to this configuration module. Please contact your IT support.
+            </div>
+        </div>
+        <div class="error-footer">
+            <button class="error-btn" onclick="closeError()">OK</button>
+        </div>
+    </div>
+
+    <div id="about-win" class="window" style="top: 40px; left: 60px; width: 550px;">
+        <div class="window-header" onmousedown="dragStart(event, 'about-win')">
+            <div class="window-title">Info.txt - Notepad</div>
+            <div class="window-controls">
+                <div class="control-btn min-btn" onclick="closeWindow('about-win')">
+                    <svg width="10" height="10" class="control-icon"><line x1="2" y1="8" x2="8" y2="8" /></svg>
+                </div>
+                <div class="control-btn max-btn">
+                    <svg width="10" height="10" class="control-icon"><rect x="2" y="2" width="6" height="6" /></svg>
+                </div>
+                <div class="control-btn close-btn" onclick="closeWindow('about-win')">X</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <div class="h-[400px] p-4 font-mono text-sm overflow-y-auto bg-white text-black text-left">
+                <p class="mb-2 text-blue-800 font-bold">PROFILE SUMMARY</p>
+                <p>Hi, I'm Raisary. I am an aspiring software engineer and currently an undergraduate at the University of Colombo, Faculty of Technology. I am pursuing a Bachelor of Information and Communication Technology Honours.
+
+My focus is on web and mobile application development. I enjoy building full-stack web applications using the MERN stack and creating mobile apps with Flutter and Native Android. I also work with C/C++ and ESP-IDF to develop firmware and low-level hardware drivers.
+
+I am passionate about learning how to architect solutions that connect user interfaces with local hardware and cloud systems.</p>
+                <br>
+                <p><strong>Location</strong></p>
+                <p>Trincomalee, Eastern Province, Sri Lanka</p>
+
+                <div class="mt-6 border-t border-gray-300 pt-4">
+                <button onclick="downloadCV()" class="bg-[#ece9d8] border border-gray-700 px-4 py-1 flex items-center gap-2 shadow-[inset_-1px_-1px_1px_#808080] active:shadow-[inset_1px_1px_1px_#808080] hover:bg-gray-200 text-xs font-sans">
+                    💾 Download_CV.pdf
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="skills-win" class="window" style="top: 100px; left: 100px; width: 720px;">
+        <div class="window-header" onmousedown="dragStart(event, 'skills-win')">
+            <div class="window-title">My Skills</div>
+            <div class="window-controls">
+                <div class="control-btn min-btn" onclick="closeWindow('skills-win')">
+                    <svg width="10" height="10" class="control-icon"><line x1="2" y1="8" x2="8" y2="8" /></svg>
+                </div>
+                <div class="control-btn max-btn">
+                    <svg width="10" height="10" class="control-icon"><rect x="2" y="2" width="6" height="6" /></svg>
+                </div>
+                <div class="control-btn close-btn" onclick="closeWindow('skills-win')">X</div>
+            </div>
+        </div>
+        <div class="nav-bar-blank"></div>
+        <div class="window-content">
+            <div class="flex h-[450px]">
+                <div class="side-panel">
+                    <div class="side-box">
+                        <div class="side-box-header">Skill Details <span>^</span></div>
+                        <div class="side-box-content" id="skill-detail-panel">
+                            <div class="text-[10px] text-gray-700 italic">Select a skill to see details.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-grow flex flex-col bg-white overflow-hidden">
+                    <div class="grid folder-inner-grid gap-4 p-4 overflow-y-auto h-full" id="skills-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="projects-win" class="window" style="top: 80px; left: 180px; width: 720px;">
+        <div class="window-header" onmousedown="dragStart(event, 'projects-win')">
+            <div class="window-title"> My Projects</div>
+            <div class="window-controls">
+                <div class="control-btn min-btn" onclick="closeWindow('projects-win')">
+                    <svg width="10" height="10" class="control-icon"><line x1="2" y1="8" x2="8" y2="8" /></svg>
+                </div>
+                <div class="control-btn max-btn">
+                    <svg width="10" height="10" class="control-icon"><rect x="2" y="2" width="6" height="6" /></svg>
+                </div>
+                <div class="control-btn close-btn" onclick="closeWindow('projects-win')">X</div>
+            </div>
+        </div>
+        <div class="nav-bar-blank"></div>
+        <div class="window-content">
+            <div class="flex h-[400px]">
+                <div class="side-panel">
+                    <div class="side-box">
+                        <div class="side-box-header">Tasks <span>^</span></div>
+                        <div class="side-box-content">
+                            <div class="side-link">📁 Open a Project</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-grow flex flex-col bg-white">
+                    <div class="grid folder-inner-grid gap-4 p-4 overflow-y-auto" id="projects-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="games-win" class="window" style="top: 120px; left: 220px; width: 600px;">
+    <div class="window-header" onmousedown="dragStart(event, 'games-win')">
+        <div class="window-title">My Games</div>
+        <div class="window-controls">
+            <div class="control-btn min-btn" onclick="closeWindow('games-win')">
+                <svg width="10" height="10" class="control-icon"><line x1="2" y1="8" x2="8" y2="8" /></svg>
+            </div>
+            <div class="control-btn max-btn">
+                <svg width="10" height="10" class="control-icon"><rect x="2" y="2" width="6" height="6" /></svg>
+            </div>
+            <div class="control-btn close-btn" onclick="closeWindow('games-win')">X</div>
+        </div>
+    </div>
+    <div class="nav-bar-blank"></div>
+    <div class="window-content">
+        <div class="flex h-[350px]">
+            <div class="side-panel">
+                <div class="side-box">
+                    <div class="side-box-header">Game Tasks <span>^</span></div>
+                    <div class="side-box-content">
+                        <div class="side-link">🎮 Play high scores</div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-grow flex flex-col bg-white">
+                <div class="grid folder-inner-grid gap-4 p-4 overflow-y-auto" id="games-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="viewer-win" class="window" style="top: 50px; left: 50px; width: 800px; height: 600px;">
+        <div class="window-header" onmousedown="dragStart(event, 'viewer-win')">
+            <div class="window-title"><span id="viewer-icon">🌐</span> <span id="viewer-title">Project Viewer</span></div>
+            <div class="window-controls">
+                <div class="control-btn min-btn" onclick="closeWindow('viewer-win')">
+                    <svg width="10" height="10" class="control-icon"><line x1="2" y1="8" x2="8" y2="8" /></svg>
+                </div>
+                <div class="control-btn max-btn">
+                    <svg width="10" height="10" class="control-icon"><rect x="2" y="2" width="6" height="6" /></svg>
+                </div>
+                <div class="control-btn close-btn" onclick="closeWindow('viewer-win')">X</div>
+            </div>
+        </div>
+        <div class="nav-bar-blank">
+            <div class="flex items-center gap-2 text-[11px] text-gray-600 px-2">
+                <span>Path:</span>
+                <div class="bg-white border border-gray-300 flex-grow px-2 py-0.5" id="viewer-address">github://raisback/projects/</div>
+            </div>
+        </div>
+        <div class="window-content h-full">
+            <iframe id="project-iframe" class="project-iframe"></iframe>
+        </div>
+    </div>
+
+    <div id="contact-win" class="window" style="top: 150px; left: 150px; width: 380px;">
+    <div class="window-header" onmousedown="dragStart(event, 'contact-win')">
+        <div class="window-title"><span>📧</span> Contact Developer</div>
+        <div class="window-controls">
+            <div class="control-btn close-btn" onclick="closeWindow('contact-win')">X</div>
+        </div>
+    </div>
+
+    <div class="window-content bg-[#ece9d8] p-4">
+        <div class="flex flex-col gap-4 text-sm">
+            
+            <div class="flex flex-col gap-3 border-b border-gray-400 pb-4">
+                <p class="font-bold text-blue-900 uppercase tracking-wider text-[10px]">Get in touch</p>
+                
+                <div class="grid grid-cols-1 gap-2 text-gray-800">
+                    <a href="mailto:Raizisback@gmail.com" class="flex items-center gap-3 hover:underline">
+                        <span class="text-base w-5 h-5 flex items-center justify-center">✉️</span>
+                        <span class="font-medium">Raizisback@gmail.com</span>
+                    </a>
+
+                    <a href="tel:+94753511308" class="flex items-center gap-3 hover:underline">
+                        <span class="text-base w-5 h-5 flex items-center justify-center">📞</span>
+                        <span class="font-medium">+94 75 351 1308</span>
+                    </a>
+                    
+                    <div class="flex flex-wrap gap-x-4 gap-y-2 mt-1 border-t border-gray-400 pt-3">
+                        <a href="https://github.com/Raisback" target="_blank" class="flex items-center gap-2 hover:underline">
+                            <img src="icons/github.png" class="w-4 h-4 object-contain" alt="GitHub">
+                            <span>GitHub</span>
+                        </a>
+
+                        <a href="http://www.linkedin.com/in/Raisary" target="_blank" class="flex items-center gap-2 hover:underline">
+                            <img src="icons/linkedin.png" class="w-4 h-4 object-contain" alt="LinkedIn">
+                            <span>LinkedIn</span>
+                        </a>
+
+                        <a href="https://hackaday.io/Raisback" target="_blank" class="flex items-center gap-2 hover:underline">
+                            <img src="icons/hackaday.png" class="w-4 h-4 object-contain" alt="Hackaday">
+                            <span>Hackaday</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <form action="https://formspree.io/f/mqearwjp" method="POST" class="flex flex-col gap-3">
+                <div class="flex flex-col">
+                    <label class="font-bold mb-1 text-gray-700 text-xs">Quick Message:</label>
+                    <textarea name="message" required rows="4" 
+                              class="bg-white border border-gray-700 p-2 shadow-[inset_1px_1px_2px_#808080] focus:outline-none text-xs resize-none" 
+                              placeholder="Type your message here..."></textarea>
+                </div>
+
+                <div class="flex justify-end">
+                    <button type="submit" 
+                            class="bg-[#ece9d8] border border-gray-700 px-6 py-1 text-xs font-bold shadow-[inset_-1px_-1px_1px_#808080] active:shadow-[inset_1px_1px_1px_#808080] hover:bg-gray-200">
+                        SEND MESSAGE
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+    <div class="start-menu" id="start-menu">
+        <div class="start-header">
+            <div class="start-user-icon overflow-hidden">
+            <img src="Chess.png" alt="User" class="w-full h-full object-cover">
+        </div>
+            <div class="font-bold">Raisary Mowsook</div>
+        </div>
+        <div class="start-columns">
+            <div class="start-left-col">
+                
+                <div class="start-item flex items-center gap-2" onclick="openWindow('projects-win', 'My Projects', 'projects.png')">
+                    <img src="projects.png" alt="Projects" class="w-7 h-7">
+                    <span class="text-[11px]">My Projects</span>
+                </div>
+
+                <div class="start-item flex items-center gap-2" onclick="openWindow('skills-win', 'My Skills', 'skills.png')">
+                    <img src="skills.png" alt="Skills" class="w-7 h-7">
+                    <span class="text-[11px]">My Skills</span>
+                </div>
+
+                <div class="start-item" onclick="openWindow('about-win', 'My_Info.txt', 'resume.png'); toggleStartMenu()">
+                    <img src="resume.png" alt="Summery" class="w-7 h-7">
+                    <span class="text-[11px]">Info.txt</span>
+                </div>
+
+                <div class="start-item" onclick="openWindow('about-win', 'My_Info.txt', 'icons/pdf_icon.png'); downloadCV()">
+                    <img src="icons/pdf_icon.png" alt="Summery" class="w-7 h-7">
+                    <span class="text-[11px]">My_CV_2026.pdf</span>
+                </div>
+
+            </div>
+
+            <div class="start-right-col">
+                <div class="start-item font-bold" onclick="showError()">My Documents</div>
+                <div class="start-item font-bold" onclick="showError()">My Pictures</div>
+                <div class="start-item font-bold" onclick="showError()">My Music</div>
+                <div class="start-divider"></div>
+                <div class="start-item" onclick="showError()">My Computer</div>
+                <div class="start-item" onclick="showError()">Control Panel</div>
+                <div class="start-divider"></div>
+                <div class="start-item" onclick="showError()">Help and Support</div>
+                <div class="start-item" onclick="showError()">Search</div>
+                <div class="start-item" onclick="showError()">Run...</div>
+            </div>
+        </div>
+        <div class="start-footer">
+    <button class="footer-btn" onclick="window.history.back()">
+            <img src="logoff.png" alt="Log Off" class="footer-btn-img">
+                Log Off
+            </button>
+                <button class="footer-btn" onclick="location.reload()">
+            <img src="shutdown.png" alt="Turn Off" class="footer-btn-img">
+             Turn Off Computer
+            </button>
+        </div>
+    </div>
+
+    <div class="taskbar">
+        <div class="start-btn" onclick="toggleStartMenu()">
+            <img src="windows-logo.png" alt="start" class="windows-logo-img">
+            start
+        </div>
+        <div class="flex items-center ml-2 gap-1 h-full" id="taskbar-apps"></div>
+        <div class="system-tray">
+            <div id="clock">12:00 PM</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

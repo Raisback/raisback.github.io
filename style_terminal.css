@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+:root {
+    --phosphor-color: #51ff00;
+    --bg-color: #050a00;
+    --phosphor-glow: rgba(81, 255, 0, 0.4);
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--phosphor-color);
+    font-family: 'VT323', monospace;
+    text-transform: uppercase;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+}
+
+.hardware-instability {
+    animation: intense-jitter 4s infinite;
+}
+
+@keyframes intense-jitter {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-1px, -1px) rotate(-0.1deg); }
+    20% { transform: translate(1px, 1px) rotate(0.1deg); }
+    30% { transform: translate(-2px, 0px); }
+    40% { transform: translate(2px, -1px); }
+    50% { transform: translate(-1px, 2px); }
+}
+
+.signal-glitch {
+    animation: violent-snap 0.2s steps(2) infinite !important;
+}
+
+@keyframes violent-snap {
+    0% { transform: translate(5px, -10px) skewX(5deg); filter: brightness(2) contrast(3); }
+    25% { transform: translate(-10px, 5px) skewX(-5deg); filter: invert(0.1); }
+    50% { transform: translate(15px, 15px) scaleY(1.1); background: rgba(81, 255, 0, 0.1); }
+    75% { transform: translate(-5px, -5px) rotate(1deg); }
+    100% { transform: translate(0, 0); }
+}
+
+.crt-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.02));
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.crt-glow {
+    text-shadow: 
+        2px 0 1px rgba(0, 255, 0, 0.5),
+        -2px 0 1px rgba(0, 255, 0, 0.5),
+        0 0 8px var(--phosphor-glow);
+}
+
+.glitch-bar {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background: var(--phosphor-color);
+    opacity: 0.3;
+    z-index: 120;
+    pointer-events: none;
+    animation: glitch-bar-anim 3s infinite linear;
+}
+
+@keyframes glitch-bar-anim {
+    0% { top: -10%; }
+    5% { top: 20%; height: 20px; opacity: 0.8; }
+    7% { top: 20%; height: 2px; opacity: 0.2; }
+    60% { top: 80%; opacity: 0.4; }
+    100% { top: 110%; }
+}
+
+.scanline {
+    width: 100%; height: 100px; z-index: 99;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
+    position: fixed; bottom: 100%;
+    animation: scanline 4s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes scanline {
+    0% { bottom: 100%; }
+    100% { bottom: -100px; }
+}
+
+.terminal-border {
+    border: 2px solid var(--phosphor-color);
+    box-shadow: 0 0 12px var(--phosphor-glow);
+}
+
+.hidden-section { display: none; }
+
+.nav-btn {
+    border: 1px solid var(--phosphor-color);
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    background: black;
+    flex-shrink: 0;
+    transition: all 0.2s;
+}
+
+.nav-btn.active {
+    background-color: var(--phosphor-color);
+    color: var(--bg-color);
+    box-shadow: 0 0 20px var(--phosphor-glow);
+}
+
+.link-btn {
+    display: block;
+    border: 1px solid var(--phosphor-color);
+    padding: 4px 10px;
+    text-align: center;
+    font-size: 13px;
+    text-decoration: none;
+    color: var(--phosphor-color);
+    background: rgba(81, 255, 0, 0.05);
+    transition: all 0.2s;
+}
+
+.link-btn:hover {
+    background: var(--phosphor-color);
+    color: black;
+    box-shadow: 0 0 10px var(--phosphor-color);
+}
+
+#content-area {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--phosphor-color) transparent;
+}
+#content-area::-webkit-scrollbar { width: 4px; }
+#content-area::-webkit-scrollbar-thumb { background: var(--phosphor-color); }
+
+.skill-bar-container {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    height: 10px;
+    border: 1px solid rgba(81, 255, 0, 0.3);
+    margin-top: 4px;
+}
+
+.skill-bar-fill {
+    height: 100%;
+    background: var(--phosphor-color);
+    box-shadow: 0 0 10px var(--phosphor-color);
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    background: rgba(81, 255, 0, 0.1);
+}
+
+@media (max-width: 640px) {
+    .nav-btn { font-size: 0.75rem; padding: 4px 8px; }
+}

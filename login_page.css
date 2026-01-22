@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Tahoma&display=swap');
+
+body {
+    font-family: 'Tahoma', sans-serif;
+    user-select: none;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #5a7edc;
+}
+
+.xp-blue-gradient {
+    background: linear-gradient(to bottom, #5a7edc 0%, #4a6bb4 100%);
+}
+
+.xp-top-bar {
+    background: linear-gradient(to bottom, #003399 0%, #0055e5 100%);
+}
+
+.xp-bottom-bar {
+    background: #003399;
+}
+
+.user-row.selected {
+    background-color: #ffcc00;
+    box-shadow: inset 0 0 2px #ce8b10;
+}
+
+.user-row.selected .user-name {
+    color: black;
+}
+
+.user-row.selected .avatar-box {
+    border-color: #ce8b10;
+}
+
+.divider {
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4), transparent);
+}
+
+/* Error message styling */
+.error-msg {
+    display: none;
+    color: #ffcccc;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-top: 4px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    animation: fadeIn 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.user-row.denied .error-msg {
+    display: block;
+}
+
+.user-row.denied {
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .divider {
+        width: 80% !important;
+        height: 2px !important;
+        left: 10% !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent) !important;
+    }
+    .panel-container { flex-direction: column; }
+    .brand-side { width: 100% !important; height: 50% !important; align-items: center !important; padding-right: 0 !important; padding-bottom: 20px; text-align: center !important; }
+    .user-side { width: 100% !important; height: 50% !important; padding-left: 0 !important; padding-top: 20px; align-items: center !important; justify-content: flex-start !important; }
+    .user-row { width: 90% !important; max-width: 280px; margin: 0 auto; }
+}

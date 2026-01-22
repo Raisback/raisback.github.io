@@ -1,0 +1,580 @@
+:root {
+    --xp-blue: #245edb;
+    --xp-taskbar: #245edb;
+    --xp-start-green: #388e3c;
+    --xp-window-bg: #f0f0f0;
+    --xp-dark-bg: #1a1a1a;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Tahoma', 'Verdana', sans-serif;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('https://wallpapercave.com/wp/wp2752630.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.desktop {
+    width: 100vw;
+    height: calc(100vh - 30px);
+    position: relative;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 10px;
+}
+
+.desktop-icon {
+    width: 85px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px;
+    color: white;
+    text-shadow: 1px 1px 2px #000;
+    font-size: 11px;
+    text-align: center;
+    z-index: 10;
+}
+
+.desktop-icon:hover {
+    background: rgba(255, 255, 255, 0.15);
+    outline: 1px dotted #fff;
+}
+
+.icon-graphic {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 4px;
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* XP Window Styling */
+.window {
+    position: absolute;
+    min-width: 300px;
+    background: var(--xp-window-bg);
+    border: 3px solid #0054e3;
+    border-radius: 8px 8px 0 0;
+    display: none;
+    flex-direction: column;
+    box-shadow: 4px 4px 15px rgba(0,0,0,0.6);
+    overflow: hidden;
+}
+
+.window-header {
+    background: linear-gradient(to bottom, #0058e6 0%, #2576ff 5%, #0058e6 10%, #0046b3 100%);
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+    cursor: move;
+    user-select: none;
+}
+
+.window-title {
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-shadow: 1px 1px 1px #000;
+}
+
+.window-controls {
+    display: flex;
+    gap: 2px;
+    padding-right: 2px;
+}
+
+.control-btn {
+    width: 21px;
+    height: 21px;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: inset -1px -1px 1px rgba(0,0,0,0.5);
+}
+
+.min-btn { background: #0058e6; }
+.max-btn { background: #0058e6; }
+.close-btn { background: linear-gradient(135deg, #e76041 0%, #b1280b 100%); color: white; font-weight: bold; font-family: sans-serif; }
+
+.control-icon {
+    stroke: white;
+    stroke-width: 2;
+    fill: none;
+}
+
+.nav-bar-blank {
+    height: 34px;
+    background: #f0f0f0;
+    border-bottom: 1px solid #d3d3d3;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.window-content {
+    flex-grow: 1;
+    padding: 0;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Side Panel Styling */
+.side-panel {
+    width: 180px;
+    background: linear-gradient(to bottom, #748aff 0%, #4058d3 100%);
+    padding: 12px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+}
+
+.side-box {
+    background: white;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.side-box-header {
+    background: linear-gradient(to right, #ffffff, #c6d3f7);
+    padding: 4px 8px;
+    color: #215dc6;
+    font-weight: bold;
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ffffff;
+}
+
+.side-box-content {
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: #eff3ff;
+}
+
+.side-link {
+    color: #215dc6;
+    font-size: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.side-link:hover {
+    text-decoration: underline;
+    color: #4287f5;
+}
+
+/* Taskbar */
+.taskbar {
+    height: 30px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    z-index: 9999;
+    background: linear-gradient(to bottom, #245edb 0%, #3f8cf3 9%, #245edb 18%, #245edb 92%, #1941a5 100%);
+    border-top: 1px solid #103184;
+}
+
+
+/* ... Keep existing CSS ... */
+
+.icon-img {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 4px;
+}
+
+.win-header-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+.start-item-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.start-btn {
+    width: 92px;
+    height: 100%;
+    /* The classic XP Start Green Gradient */
+    background: linear-gradient(to bottom, #388e3c 0%, #4caf50 10%, #388e3c 90%, #1b5e20 100%);
+    border-radius: 0 9px 9px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+    
+    /* Text Styling */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: italic;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+    gap: 5px;
+    padding-right: 10px;
+    user-select: none;
+}
+
+
+.windows-logo-img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.5));
+}
+
+.footer-btn-img {
+    width: 22px;
+    height: 22px;
+}
+
+/*.start-btn {
+    width: 115px;
+    height: 100%;
+    background: linear-gradient(to bottom, #388e3c 0%, #4caf50 10%, #388e3c 90%, #1b5e20 100%);
+    border-radius: 0 12px 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+    font-style: italic;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 1px #000;
+    font-size: 16px;
+    gap: 6px;
+    padding-right: 8px;
+}
+*/
+
+.start-btn:hover {
+    filter: brightness(1.1);
+}
+
+.windows-logo {
+    width: 22px;
+    height: 22px;
+    filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.5));
+}
+
+/* Taskbar Buttons (Open Windows) */
+.taskbar-item {
+    min-width: 120px;
+    max-width: 160px;
+    height: 24px;
+    background: #3c81f3;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 2px;
+    margin-left: 4px;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: white;
+    font-size: 11px;
+    cursor: pointer;
+    box-shadow: inset 1px 1px 1px rgba(255,255,255,0.2);
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.taskbar-item:hover {
+    background: #4b92ff;
+}
+
+.taskbar-item.active {
+    background: #1e52b7;
+    box-shadow: inset -1px -1px 2px rgba(0,0,0,0.5);
+}
+
+/* Start Menu */
+.start-menu {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    width: 380px;
+    background: #fff;
+    border: 2px solid #0054e3;
+    border-radius: 5px 5px 0 0;
+    display: none;
+    flex-direction: column;
+    box-shadow: 2px -2px 15px rgba(0,0,0,0.6);
+    z-index: 10000;
+    overflow: hidden;
+}
+
+.start-header {
+    background: linear-gradient(to bottom, #0054e3, #2576ff);
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    border-bottom: 2px solid #e2a22b;
+}
+
+.start-user-icon {
+    width: 42px;
+    height: 42px;
+    background: #ffa500;
+    border: 2px solid white;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.start-columns {
+    display: flex;
+    background: white;
+}
+
+.start-left-col {
+    width: 50%;
+    padding: 5px;
+    background: white;
+    border-right: 1px solid #d3d3d3;
+}
+
+.start-right-col {
+    width: 50%;
+    background: #d3e5fa;
+    padding: 5px;
+}
+
+.start-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    cursor: pointer;
+    font-size: 11px;
+    color: #333;
+}
+
+.start-item:hover {
+    background: #316ac5;
+    color: white;
+}
+
+.start-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #80a4d0, transparent);
+    margin: 4px 0;
+}
+
+.start-footer {
+    background: linear-gradient(to bottom, #4c8ffc, #1d52d1);
+    height: 40px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 10px;
+    gap: 10px;
+}
+
+/* Updated footer button styles for PNG icons */
+.footer-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 11px;
+    cursor: pointer;
+    padding: 2px 6px;
+}
+
+.footer-btn-img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+.footer-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.footer-btn-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    border-radius: 3px;
+    color: white;
+}
+
+.logoff-icon { background: #e76041; border: 1px solid #ffffff40; }
+.shutdown-icon { background: #b1280b; border: 1px solid #ffffff40; }
+
+/* Classic Error Modal */
+.error-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background: #ece9d8;
+    border: 2px solid #0054e3;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    display: none;
+    flex-direction: column;
+    z-index: 20000;
+}
+
+.error-header {
+    background: linear-gradient(to right, #0058e6, #2576ff);
+    height: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+    color: white;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.error-body {
+    padding: 15px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.error-icon-circle {
+    width: 32px;
+    height: 32px;
+    background: #d40000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border: 2px solid white;
+}
+
+.error-text {
+    font-size: 11px;
+    color: black;
+}
+
+.error-footer {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.error-btn {
+    background: #ece9d8;
+    border: 1px solid #0054e3;
+    padding: 2px 25px;
+    font-size: 11px;
+    box-shadow: inset -1px -1px 1px #808080;
+    cursor: pointer;
+}
+
+.error-btn:active {
+    box-shadow: inset 1px 1px 1px #808080;
+}
+
+.system-tray {
+    margin-left: auto;
+    background: #0997ff;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    color: white;
+    font-size: 11px;
+    border-left: 1px solid #103184;
+}
+
+.item-selected {
+    background: #316ac5 !important;
+    color: white !important;
+    outline: 1px dotted #fff;
+}
+
+.item-selected span { color: white !important; }
+
+.folder-inner-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+}
+
+/* Iframe Project Viewer */
+.project-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #fff;
+}
+
+/* Skill Categorization Styles */
+.skill-category-title {
+    grid-column: 1 / -1;
+    font-size: 11px;
+    font-weight: bold;
+    color: #215dc6;
+    padding-bottom: 4px;
+    margin-top: 10px;
+    border-bottom: 1px solid #d3d3d3;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.skill-progress-bg {
+    width: 100%;
+    height: 10px;
+    background: #d3d3d3;
+    border: 1px solid #808080;
+    margin-top: 5px;
+    position: relative;
+}
+
+.skill-progress-fill {
+    height: 100%;
+    background: linear-gradient(to bottom, #388e3c, #4caf50, #388e3c);
+}
